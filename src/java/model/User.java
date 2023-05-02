@@ -40,7 +40,9 @@ public class User {
     //toString = Representação em formato String do Objeto
     @Override
     public String toString() {
-        return "Nome: " + this.userName + "<br>Apelido: " + this.userNick;
+        return "Nome: " +  this.userName +
+                "<br>Apelido: "  + this.userNick +
+                "<br>Senha: " + this.userPass;
     }
     
     //Métodos gerais (regras de negócio)

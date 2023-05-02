@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.User;
 
 
@@ -26,6 +27,8 @@ public class LoginController extends HttpServlet {
         User newUser = new User(this.user, this.pass);
         
         if(newUser.isLogged()) {
+            HttpSession session = request.getSession();
+            session.setAttribute("userSession", newUser);
             request.setAttribute("userLogged", newUser);
             request.getRequestDispatcher("home.jsp")
                     .forward(request, response);

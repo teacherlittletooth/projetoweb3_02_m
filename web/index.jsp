@@ -4,6 +4,15 @@
     Author     : QI
 --%>
 
+<%@page import="model.User"%>
+<%
+    User userSession = (User) session.getAttribute("userSession");
+    //out.print(userSession);
+    if(userSession != null) {
+        response.sendRedirect("home.jsp");
+    }
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +23,7 @@
         <link rel="icon" href="img/logotipo.png"/>
     </head>
     <body>
-        <form action="login_controller">
+        <form action="login_controller" method="post">
             <img src="img/logotipo.png" alt="Logotipo do site" width="200"/>
             <br>
             <input type="text" name="user" id="user" class="fields" placeholder="Nome de usuário" required>

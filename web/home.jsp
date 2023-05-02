@@ -4,14 +4,20 @@
     Author     : QI
 --%>
 
+<%@include file="session/verify.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Game</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <button type="button" onclick=window.location.href="session/logout.jsp">Logout</button>
+        <h1>
+         <%=
+                session.getAttribute("userSession")
+             %>
+        </h1>
     </body>
 </html>
