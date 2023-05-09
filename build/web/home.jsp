@@ -20,8 +20,12 @@
     </head>
     <body>
         <p>
-            <button type="button" onclick=window.location.href="session/logout.jsp">Logout</button>
-            Bem vindo <%= u.getUserName() %>!
+            <button type="button" onclick="window.location.href='session/logout.jsp'">Logout</button>
+            Bem vindo <%=
+                                                                            (u != null)
+                                                                            ?  u.getUserName()
+                                                                            : "visitante"
+                                                                %>!
         </p>
         <main>
             <button onclick="window.location.href='cadastro.jsp'">Cadastrar</button>

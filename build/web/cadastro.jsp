@@ -18,6 +18,7 @@
         <form action="#" method="post">
             <input type="text" name="nome_mapa" placeholder="Nome do mapa" required>
             <br><br>
+            
             <select name="missao" required>
                 <option value="">Selecione uma missão</option>
                 <option value="Deserto">Deserto</option>
@@ -27,7 +28,8 @@
                 <option value="Caverna">Caverna</option>
             </select>
             <br><br>
-            <select name="clima" required>
+            
+             <select name="clima" required>
                 <option value="">Selecione um clima</option>
                 <option value="Ensolarado">Ensolarado</option>
                 <option value="Chuvoso">Chuvoso</option>
@@ -36,6 +38,7 @@
                 <option value="Torrando os pelo">Torrando os pelo</option>
             </select>
             <br><br>
+            
             <input type="submit" value="Salvar mapa">
         </form>
         <br><br>
