@@ -15,11 +15,11 @@
     <body>
         <h1>Cadastro</h1>
         <h2>Novo mapa</h2>
-        <form action="#" method="post">
+        <form action="MapaController" method="post">
             <input type="text" name="nome_mapa" placeholder="Nome do mapa" required>
             <br><br>
             
-            <select name="missao" required>
+            <select name="missao_mapa" required>
                 <option value="">Selecione uma missão</option>
                 <option value="Deserto">Deserto</option>
                 <option value="Praia">Praia</option>
@@ -29,7 +29,7 @@
             </select>
             <br><br>
             
-             <select name="clima" required>
+             <select name="clima_mapa" required>
                 <option value="">Selecione um clima</option>
                 <option value="Ensolarado">Ensolarado</option>
                 <option value="Chuvoso">Chuvoso</option>

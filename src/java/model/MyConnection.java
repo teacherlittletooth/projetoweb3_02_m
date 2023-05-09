@@ -20,6 +20,5 @@ public class MyConnection {
             
             System.out.println("Conexão bem sucedida!");
             return conn;
-        
         }
 }
