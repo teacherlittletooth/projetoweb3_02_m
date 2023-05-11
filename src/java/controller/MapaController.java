@@ -21,10 +21,6 @@ public class MapaController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        this.nome = request.getParameter("nome_mapa");
-        this.missao = request.getParameter("missao_mapa");
-        this.clima = request.getParameter("clima_mapa");
-        
         Mapa objMapa = new Mapa(this.nome, this.missao, this.clima);
         
         try {
@@ -40,15 +36,16 @@ public class MapaController extends HttpServlet {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head>");
-                out.println("<title>Servlet MapaController</title>");            
+                out.println("<title>Game</title>");            
                 out.println("</head>");
                 out.println("<body>");
-                out.println("<h1>Servlet MapaController at " + request.getContextPath() + "</h1>");
+                out.println("<h1>Ocorreu algum erro: " + erro + "</h1>");
                 out.println("</body>");
                 out.println("</html>");
             }
         }
-    }
+        
+    }//Fim do else
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -63,6 +60,7 @@ public class MapaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**

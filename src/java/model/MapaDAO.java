@@ -2,7 +2,9 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MapaDAO {
         private static Connection conn;
@@ -26,5 +28,42 @@ public class MapaDAO {
             
             prep.execute(); //Lançando o SQL pronto na base de dados
             prep.close();
-        }
-}
+        }//Fim do método insertMapa
+        
+        public ArrayList<Mapa> listMapa() throws SQLException {
+            //Criação de uma lista vazia (específica de Mapas)
+            ArrayList<Mapa> list = new ArrayList<>();
+            
+            String sql = "SELECT * FROM mapas";
+            PreparedStatement prep = conn.prepareStatement(sql);
+            
+            ResultSet result = prep.executeQuery();
+            
+            //Enquanto existirem registros, executará este laço de repetição
+            while(result.next()) {
+                //Criar um objeto vazio da classe Mapa
+                Mapa mapa = new Mapa();
+                
+                //Inserir os atributos a partir dos dados de cada coluna
+                mapa.setIdMapa(result.getInt("cod_mapa"));
+                mapa.setNome(result.getString("nome"));
+                mapa.setMissao(result.getString("missao"));
+                mapa.setClima(result.getString("clima"));
+                
+                //Inserir o objeto preenchido na lista
+                list.add(mapa);
+            }
+            
+            return list;
+        }//Fim do método listMapa
+        
+        public void deleteMapa(int id) throws SQLException {
+            String sql = "DELETE FROM mapas WHERE cod_mapa = " + id;
+            
+            PreparedStatement prep = conn.prepareStatement(sql);
+            
+            prep.execute();
+            prep.close();
+        }//Fim do método deleteMapa
+        
+}//Fim da classe

@@ -6,6 +6,8 @@ public class Mapa {
         private String missao;
         private String clima;
 
+    public Mapa(){}    
+        
     public Mapa(String nome, String missao, String clima) {
         this.nome = nome;
         this.missao = missao;
