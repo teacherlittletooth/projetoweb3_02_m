@@ -8,54 +8,41 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Mapa;
 import model.MapaDAO;
 
-@WebServlet(name = "MapaController", urlPatterns = {"/MapaController"})
-public class MapaController extends HttpServlet {
-    private String nome;
-    private String missao;
-    private String clima;
+@WebServlet(name = "MapaDelete", urlPatterns = {"/MapaDelete"})
+public class MapaDelete extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //Recebendo os valores enviados pelo formulário de cadastro
-        this.nome = request.getParameter("nome_mapa");
-        this.missao = request.getParameter("missao_mapa");
-        this.clima = request.getParameter("clima_mapa");
+        //Recebendo o código enviado via "get" pelo botão de excluir
+        int cod = Integer.parseInt(request.getParameter("cod"));
         
-        //Criando um novo objeto da classe Mapa com os valores recebidos
-        Mapa objMapa = new Mapa(
-                this.nome,
-                this.missao,
-                this.clima
-        );
-        
+        //Realizando a exclusão por meio da classe MapaDAO
         try {
-            
-            MapaDAO dao = new MapaDAO();
-            dao.insertMapa(objMapa);
+            MapaDAO mdao = new MapaDAO();
+            mdao.deleteMapa(cod);
             response.sendRedirect("lista.jsp");
-        
-        } catch(ClassNotFoundException | SQLException erro) {
             
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Game</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Ocorreu algum erro: " + erro + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
+        } catch(SQLException | ClassNotFoundException erro) {
+        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet MapaDelete</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h4>Ocorreu algum erro: " + erro + "</h4>");
+            out.println("<h1>Este registro está ligado a outra tabela.</h1>");
+            out.println("</body>");
+            out.println("</html>");
             }
         }
-        
-    }//Fim do else
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -70,7 +57,6 @@ public class MapaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**

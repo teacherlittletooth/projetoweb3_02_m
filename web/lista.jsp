@@ -40,10 +40,10 @@
                     <td><%= item.getMissao()%></td>
                     <td><%= item.getClima()%></td>
                     <td>
-                        <a href="#editar<%= item.getIdMapa() %>"  >📝</a>
+                        <a href="MapaUpdate?cod=<%= item.getIdMapa() %>"  >📝</a>
                     </td>
                     <td>
-                        <a href="MapaController?id=<%= item.getIdMapa() %>"  >❌</a>
+                        <a onclick="confirmaDelete(<%= item.getIdMapa() %>)">❌</a>
                     </td>
                   </tr>
                <%
@@ -53,5 +53,16 @@
            </table>
         <hr>
         <a href="home.jsp" title="Página inicial">Página inicial</a>
+    
+    <script>
+        function confirmaDelete(id){
+            if(confirm("Deseja realmente excliur?")){
+                window.location.replace("MapaDelete?cod=" + id);
+            } else {
+                alert("Exclusão cancelada.");
+            }
+        }
+      </script>
+        
     </body>
 </html>

@@ -30,6 +30,8 @@ public class MapaDAO {
             prep.close();
         }//Fim do método insertMapa
         
+        
+        
         public ArrayList<Mapa> listMapa() throws SQLException {
             //Criação de uma lista vazia (específica de Mapas)
             ArrayList<Mapa> list = new ArrayList<>();
@@ -57,6 +59,8 @@ public class MapaDAO {
             return list;
         }//Fim do método listMapa
         
+        
+        
         public void deleteMapa(int id) throws SQLException {
             String sql = "DELETE FROM mapas WHERE cod_mapa = " + id;
             
@@ -65,5 +69,26 @@ public class MapaDAO {
             prep.execute();
             prep.close();
         }//Fim do método deleteMapa
+        
+        
+        public Mapa listOneMapa(int cod) throws SQLException {
+             String query = "SELECT * FROM mapas WHERE cod_mapa = " + cod;
+             
+             PreparedStatement prep = conn.prepareStatement(query);
+             
+             ResultSet result = prep.executeQuery();
+             
+             Mapa mapa = new Mapa();
+             
+             if(result.next()){
+                mapa = new Mapa(
+                        result.getInt("cod_mapa"),
+                        result.getString("nome"),
+                        result.getString("missao"),
+                        result.getString("clima")
+                );
+             }             
+             return mapa;
+        }
         
 }//Fim da classe

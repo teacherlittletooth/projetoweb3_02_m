@@ -11,51 +11,40 @@ import javax.servlet.http.HttpServletResponse;
 import model.Mapa;
 import model.MapaDAO;
 
-@WebServlet(name = "MapaController", urlPatterns = {"/MapaController"})
-public class MapaController extends HttpServlet {
-    private String nome;
-    private String missao;
-    private String clima;
 
+@WebServlet(name = "MapaUpdate", urlPatterns = {"/MapaUpdate"})
+public class MapaUpdate extends HttpServlet {
+    private int cod;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //Recebendo os valores enviados pelo formulário de cadastro
-        this.nome = request.getParameter("nome_mapa");
-        this.missao = request.getParameter("missao_mapa");
-        this.clima = request.getParameter("clima_mapa");
-        
-        //Criando um novo objeto da classe Mapa com os valores recebidos
-        Mapa objMapa = new Mapa(
-                this.nome,
-                this.missao,
-                this.clima
-        );
+        //Recebendo os valores do registro selecionado para edição
+        this.cod = Integer.parseInt(request.getParameter("cod"));
         
         try {
+            MapaDAO mdao = new MapaDAO();
+            Mapa mapaEdit = mdao.listOneMapa(this.cod);
+            request.setAttribute("mapa", mapaEdit);
+            request.getRequestDispatcher("editmapa.jsp").forward(request, response);
             
-            MapaDAO dao = new MapaDAO();
-            dao.insertMapa(objMapa);
-            response.sendRedirect("lista.jsp");
+        } catch(SQLException | ClassNotFoundException erro) {
         
-        } catch(ClassNotFoundException | SQLException erro) {
-            
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Game</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Ocorreu algum erro: " + erro + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet MapaUpdate</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet MapaUpdate at " + erro + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
             }
         }
-        
-    }//Fim do else
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -70,7 +59,6 @@ public class MapaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**

@@ -13,6 +13,13 @@ public class Mapa {
         this.missao = missao;
         this.clima = clima;
     }
+    
+    public Mapa(int id, String nome, String missao, String clima) {
+        this.idMapa = id;
+        this.nome = nome;
+        this.missao = missao;
+        this.clima = clima;
+    }
 
     public int getIdMapa() {
         return idMapa;
