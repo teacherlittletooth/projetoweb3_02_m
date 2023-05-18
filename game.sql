@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Tempo de geração: 09-Maio-2023 às 15:15
+-- Tempo de geração: 18-Maio-2023 às 19:02
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.1.12
 
@@ -23,6 +23,7 @@ SET time_zone = "+00:00";
 
 CREATE DATABASE game;
 USE game;
+
 -- --------------------------------------------------------
 
 --
@@ -40,9 +41,6 @@ CREATE TABLE `loja` (
 --
 
 INSERT INTO `loja` (`cod_loja`, `nome`, `cod_mapa`) VALUES
-(1, 'Te amo...sqn hahahaha', 1),
-(2, 'Te amo...sqn hahahaha', 1),
-(3, 'Padaria', 1),
 (4, 'Te amo...sqn hahahaha', 2),
 (5, 'Nova loja', 2),
 (6, 'Nova loja', 3),
@@ -66,10 +64,11 @@ CREATE TABLE `mapas` (
 --
 
 INSERT INTO `mapas` (`cod_mapa`, `nome`, `missao`, `clima`) VALUES
-(1, 'SanAndreas', 'Derrubar Nexus Inimigo', 'Ensolarado'),
-(2, 'Vice City', 'Explodir Metrô', 'Chuvoso'),
+(2, 'Vice City', 'Deserto', 'Chuvoso'),
 (3, 'Las Vegas', 'Trapassear no Cassino', 'Nublado'),
-(4, 'Los Santos', 'Sequestrar avião', 'Ventoso');
+(4, 'Los Santos', 'Sequestrar avião', 'Ventoso'),
+(12, 'Estadio', 'Cidade grande', 'Ensolarado'),
+(13, 'Parque naum muito selvagem', 'Selva', 'Ensolarado');
 
 -- --------------------------------------------------------
 
@@ -112,19 +111,36 @@ CREATE TABLE `npc_mapas` (
 --
 
 INSERT INTO `npc_mapas` (`cod_npc_mapas`, `cod_npc`, `cod_mapa`) VALUES
-(14, 1, 1),
 (15, 1, 2),
 (16, 1, 3),
 (17, 1, 4),
 (18, 2, 2),
 (19, 2, 3),
-(20, 3, 1),
 (21, 3, 2),
-(22, 4, 1),
 (23, 4, 2),
 (24, 4, 3),
 (25, 4, 4),
 (26, 5, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id_usuario` int(11) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `senha` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `nome`, `senha`) VALUES
+(1, 'Alberto Roberto', '1234'),
+(2, 'Filomena Josefa', '4321');
 
 --
 -- Índices para tabelas despejadas
@@ -158,6 +174,12 @@ ALTER TABLE `npc_mapas`
   ADD KEY `cod_mapa` (`cod_mapa`);
 
 --
+-- Índices para tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -171,7 +193,7 @@ ALTER TABLE `loja`
 -- AUTO_INCREMENT de tabela `mapas`
 --
 ALTER TABLE `mapas`
-  MODIFY `cod_mapa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cod_mapa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `npc`
@@ -184,6 +206,12 @@ ALTER TABLE `npc`
 --
 ALTER TABLE `npc_mapas`
   MODIFY `cod_npc_mapas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para despejos de tabelas

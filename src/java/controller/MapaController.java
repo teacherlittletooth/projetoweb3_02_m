@@ -13,6 +13,7 @@ import model.MapaDAO;
 
 @WebServlet(name = "MapaController", urlPatterns = {"/MapaController"})
 public class MapaController extends HttpServlet {
+    private int cod;
     private String nome;
     private String missao;
     private String clima;
@@ -21,24 +22,41 @@ public class MapaController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        //Verificando se há o recebimento do campo "cod"
+        if(request.getParameter("cod_mapa") != null) {
+            this.cod = Integer.parseInt(request.getParameter("cod_mapa"));
+        }
+        
         //Recebendo os valores enviados pelo formulário de cadastro
         this.nome = request.getParameter("nome_mapa");
         this.missao = request.getParameter("missao_mapa");
         this.clima = request.getParameter("clima_mapa");
         
-        //Criando um novo objeto da classe Mapa com os valores recebidos
-        Mapa objMapa = new Mapa(
-                this.nome,
-                this.missao,
-                this.clima
-        );
-        
         try {
-            
-            MapaDAO dao = new MapaDAO();
-            dao.insertMapa(objMapa);
-            response.sendRedirect("lista.jsp");
         
+            if(request.getParameter("cod_mapa") == null) {
+                //Criando um novo objeto da classe Mapa com os valores recebidos
+                Mapa objMapa = new Mapa(
+                        this.nome,
+                        this.missao,
+                        this.clima
+                );
+
+                    MapaDAO dao = new MapaDAO();
+                    dao.insertMapa(objMapa);
+                    response.sendRedirect("lista.jsp");
+            } else {
+                Mapa objMapa = new Mapa(
+                        this.cod,
+                        this.nome,
+                        this.missao,
+                        this.clima
+                );
+                
+                MapaDAO dao = new MapaDAO();
+                dao.updateMapa(objMapa);
+                response.sendRedirect("lista.jsp");
+            }
         } catch(ClassNotFoundException | SQLException erro) {
             
             try (PrintWriter out = response.getWriter()) {

@@ -13,6 +13,7 @@ public class MapaDAO {
             conn = MyConnection.getConnection();
         }
         
+        //INSERT
         public void insertMapa(Mapa mapa) throws SQLException{
            //Criando a query genérica
             String sql = "INSERT INTO mapas(nome, missao, clima)"
@@ -31,7 +32,7 @@ public class MapaDAO {
         }//Fim do método insertMapa
         
         
-        
+        //SELECT
         public ArrayList<Mapa> listMapa() throws SQLException {
             //Criação de uma lista vazia (específica de Mapas)
             ArrayList<Mapa> list = new ArrayList<>();
@@ -60,7 +61,7 @@ public class MapaDAO {
         }//Fim do método listMapa
         
         
-        
+        //DELETE
         public void deleteMapa(int id) throws SQLException {
             String sql = "DELETE FROM mapas WHERE cod_mapa = " + id;
             
@@ -71,6 +72,7 @@ public class MapaDAO {
         }//Fim do método deleteMapa
         
         
+        //SELECT BY ID
         public Mapa listOneMapa(int cod) throws SQLException {
              String query = "SELECT * FROM mapas WHERE cod_mapa = " + cod;
              
@@ -89,6 +91,28 @@ public class MapaDAO {
                 );
              }             
              return mapa;
+        }
+        
+        
+        //UPDATE
+        public void updateMapa(Mapa mapa) throws SQLException {
+            //Query genérica
+            String query = "UPDATE mapas SET nome = ?, "
+                    + "missao = ?, clima = ? "
+                    + "WHERE cod_mapa = ?";
+            
+            //Preparando a query para executar no BD
+            PreparedStatement prep = conn.prepareStatement(query);
+            
+            //Trocar as interrogações por valores do objeto enviado
+            prep.setString(1, mapa.getNome());
+            prep.setString(2, mapa.getMissao());
+            prep.setString(3, mapa.getClima());
+            prep.setInt(4, mapa.getIdMapa());
+            
+            //Executar query pronta
+            prep.execute();
+            prep.close();
         }
         
 }//Fim da classe

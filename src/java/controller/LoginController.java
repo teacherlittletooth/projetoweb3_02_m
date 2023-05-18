@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +27,8 @@ public class LoginController extends HttpServlet {
         
         User newUser = new User(this.user, this.pass);
         
+        try {
+        
         if(newUser.isLogged()) {
             HttpSession session = request.getSession();
             session.setAttribute("userSession", newUser);
@@ -48,6 +51,11 @@ public class LoginController extends HttpServlet {
                 out.println("</body>");
                 out.println("</html>");
             }
+        }
+        } catch(ClassNotFoundException | SQLException erro) {
+                try (PrintWriter out = response.getWriter()){
+                    out.print(erro);
+                }
         }
     }
 

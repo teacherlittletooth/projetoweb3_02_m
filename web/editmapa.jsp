@@ -20,14 +20,15 @@
     <body>
         <h1>Edição</h1>
         
-        <form action="#" method="post">
+        <form action="MapaController" method="post">
             <input type="text" name="cod_mapa" value="<%= mapa.getIdMapa() %>" readonly>
+            <br><br>
             
-            <input type="text" name="nome_mapa" placeholder="Nome do mapa" required>
+            <input type="text" name="nome_mapa" value="<%= mapa.getNome() %>" placeholder="Nome do mapa" required>
             <br><br>
             
             <select name="missao_mapa" required>
-                <option value="">Selecione uma missão</option>
+                <option value="<%= mapa.getMissao() %>"><%= mapa.getMissao() %></option>
                 <option value="Deserto">Deserto</option>
                 <option value="Praia">Praia</option>
                 <option value="Selva">Selva</option>
@@ -37,7 +38,7 @@
             <br><br>
             
              <select name="clima_mapa" required>
-                <option value="">Selecione um clima</option>
+                <option value="<%= mapa.getClima() %>"><%= mapa.getClima() %></option>
                 <option value="Ensolarado">Ensolarado</option>
                 <option value="Chuvoso">Chuvoso</option>
                 <option value="Nublado">Nublado</option>
@@ -46,7 +47,8 @@
             </select>
             <br><br>
             
-            <input type="submit" value="Salvar mapa">
+            <input type="submit" value="Atualizar mapa">
+            <input type="reset" value="Restaurar">
         </form>
         <br><br>
         <a href="home.jsp" title="Página inicial">Página inicial</a>
